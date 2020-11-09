@@ -24,6 +24,7 @@ type Config struct {
 	Resource                      string   `json:",omitempty"`
 	Proxies                       []string `json:",omitempty"`
 	Password                      string   `json:",omitempty"`
+	PasswordCommand               string   `json:",omitempty"`
 	Port                          int      `json:",omitempty"`
 	PrivateKey                    []byte
 	KnownFingerprints             []KnownFingerprint

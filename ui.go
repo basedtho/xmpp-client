@@ -236,7 +236,18 @@ func main() {
 		config.Save()
 	}
 
-	password := config.Password
+	password := ""
+	if len(config.PasswordCommand) != 0 {
+		args := strings.Fields(config.PasswordCommand)
+		passwordBytes, e := exec.Command(args[0], args[1:]...).Output()
+		if e == nil {
+			password = string(passwordBytes)
+			password = strings.TrimSpace(password)
+		}
+	} else {
+		password = config.Password
+	}
+
 	if len(password) == 0 {
 		if password, err = term.ReadPassword(fmt.Sprintf("Password for %s (will not be saved to disk): ", config.Account)); err != nil {
 			alert(term, "Failed to read password: "+err.Error())
