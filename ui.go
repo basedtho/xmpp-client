@@ -981,6 +981,7 @@ func (s *Session) processClientMessage(stanza *xmpp.ClientMessage) {
 		line = append(line, '\a')
 	}
 	s.term.Write(line)
+	exec.Command("notify-send", from).Run()
 	s.maybeNotify()
 }
 
